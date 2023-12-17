@@ -275,37 +275,9 @@ class PeerClient(threading.Thread):
 
 # main process of the peer
 class peerMain:
-
-    # peer initializations
-    def __init__(self):
-        # ip address of the registry
-        self.registryName = input("Enter IP address of registry: ")
-        #self.registryName = 'localhost'
-        # port number of the registry
-        self.registryPort = 15600
-        # tcp socket connection to registry
-        self.tcpClientSocket = socket(AF_INET, SOCK_STREAM)
-        self.tcpClientSocket.connect((self.registryName,self.registryPort))
-        # initializes udp socket which is used to send hello messages
-        self.udpClientSocket = socket(AF_INET, SOCK_DGRAM)
-        # udp port of the registry
-        self.registryUDPPort = 15500
-        # login info of the peer
-        self.loginCredentials = (None, None)
-        # online status of the peer
-        self.isOnline = False
-        # server port number of this peer
-        self.peerServerPort = None
-        # server of this peer
-        self.peerServer = None
-        # client of this peer
-        self.peerClient = None
-        # timer initialization
-        self.timer = None
-        
+    # async init
+    async def initialize(self):
         choice = "0"
-        # log file initialization
-        logging.basicConfig(filename="peer.log", level=logging.INFO)
         # as long as the user is not logged out, asks to select an option in the menu
         while choice != "3":
             # menu selection prompt
@@ -316,7 +288,7 @@ class peerMain:
                 username = input("username: ")
                 password = input("password: ")
                 
-                self.createAccount(username, password)
+                await self.createAccount(username, password)
             # if choice is 2 and user is not logged in, asks for the username
             # and the password to login
             elif choice is "2" and not self.isOnline:
@@ -397,6 +369,36 @@ class peerMain:
         if choice != "CANCEL":
             self.tcpClientSocket.close()
 
+    # peer initializations
+    def __init__(self):
+        # ip address of the registry
+        self.registryName = input("Enter IP address of registry: ")
+        #self.registryName = 'localhost'
+        # port number of the registry
+        self.registryPort = 15600
+        # tcp socket connection to registry
+        self.tcpClientSocket = socket(AF_INET, SOCK_STREAM)
+        self.tcpClientSocket.connect((self.registryName,self.registryPort))
+        # initializes udp socket which is used to send hello messages
+        self.udpClientSocket = socket(AF_INET, SOCK_DGRAM)
+        # udp port of the registry
+        self.registryUDPPort = 15500
+        # login info of the peer
+        self.loginCredentials = (None, None)
+        # online status of the peer
+        self.isOnline = False
+        # server port number of this peer
+        self.peerServerPort = None
+        # server of this peer
+        self.peerServer = None
+        # client of this peer
+        self.peerClient = None
+        # timer initialization
+        self.timer = None
+        
+        choice = "0"
+        
+
     # account creation function
     def createAccount(self, username, password):
         # join message to create an account is composed and sent to registry
@@ -476,5 +478,10 @@ class peerMain:
         self.timer = threading.Timer(1, self.sendHelloMessage)
         self.timer.start()
 
-# peer is started
-main = peerMain()
+async def create_peer_instance():
+    peer_instance = peerMain()
+    await peer_instance.initialize()
+
+# Run the asynchronous function
+import asyncio
+asyncio.run(create_peer_instance())

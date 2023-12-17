@@ -29,7 +29,7 @@ class ClientThread(threading.Thread):
         print("New thread started for " + ip + ":" + str(port))
 
     # main of the thread
-    def run(self):
+    async def run(self):
         # locks for thread which will be used for thread synchronization
         self.lock = threading.Lock()
         print("Connection from: " + self.ip + ":" + str(port))
@@ -52,7 +52,7 @@ class ClientThread(threading.Thread):
                     # join-success is sent to peer,
                     # if an account with this username is not exist, and the account is created
                     else:
-                        db.register(message[1], message[2])
+                        await db.register(message[1], message[2])
                         response = "join-success"
                         logging.info("Send to " + self.ip + ":" + str(self.port) + " -> " + response) 
                         self.tcpClientSocket.send(response.encode())

@@ -1,30 +1,30 @@
 from pymongo import MongoClient
 
+
+# mongoPass = tJgmWD36mFJoAWHm
 # Includes database operations
 class DB:
 
 
     # db initializations
     def __init__(self):
-        self.client = MongoClient('mongodb://localhost:27017/')
+        self.client = MongoClient('mongodb+srv://kmhtaha:tJgmWD36mFJoAWHm@cluster0.okxf27l.mongodb.net/')
         self.db = self.client['p2p-chat']
 
 
     # checks if an account with the username exists
     def is_account_exist(self, username):
-        if self.db.accounts.find({'username': username}).count() > 0:
-            return True
-        else:
-            return False
+        count = self.db.accounts.count_documents({'username': username})
+        return count > 0
     
 
-    # registers a user
+    # registers a user 
     def register(self, username, password):
         account = {
             "username": username,
             "password": password
         }
-        self.db.accounts.insert(account)
+        self.db.accounts.insert_one(account)
 
 
     # retrieves the password for a given username
@@ -34,7 +34,7 @@ class DB:
 
     # checks if an account with the username online
     def is_account_online(self, username):
-        if self.db.online_peers.find({"username": username}).count() > 0:
+        if self.db.online_peers.count_documents({"username": username}) > 0:
             return True
         else:
             return False
@@ -47,7 +47,7 @@ class DB:
             "ip": ip,
             "port": port
         }
-        self.db.online_peers.insert(online_peer)
+        self.db.online_peers.insert_one(online_peer)
     
 
     # logs out the user 

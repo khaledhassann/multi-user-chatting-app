@@ -1,1 +1,19 @@
 INFO:root:Send to 192.168.1.102:15600 -> JOIN khaled pass1
+INFO:root:Send to 192.168.1.102:15600 -> JOIN khaled pass2
+INFO:root:Send to 192.168.1.102:15600 -> JOIN khaled pass3
+INFO:root:Send to 192.168.1.102:15600 -> JOIN khaled pass4
+INFO:root:Send to 192.168.1.102:15600 -> JOIN khaled pass5
+INFO:root:Send to 192.168.1.102:15600 -> JOIN khaled pass6
+INFO:root:Send to 192.168.1.102:15600 -> JOIN khaled pass7
+INFO:root:Received from 192.168.1.102 -> join-success
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass6 15600
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass6 15600
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass6 15600
+INFO:root:Received from 192.168.1.102 -> login-wrong-password
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass7 15600
+INFO:root:Received from 192.168.1.102 -> login-success
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled

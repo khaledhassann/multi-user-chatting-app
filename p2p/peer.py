@@ -9,6 +9,7 @@ import threading
 import time
 import select
 import logging
+import asyncio
 
 # Server side of peer
 class PeerServer(threading.Thread):
@@ -38,8 +39,14 @@ class PeerServer(threading.Thread):
         self.chattingClientName = None
     
 
-    # main method of the peer server thread
+     # Main entry point to run the asynchronous method
     def run(self):
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        loop.run_until_complete(self.run_async())
+
+    # main method of the peer server thread
+    async def run_async(self):
 
         print("Peer server started...")    
 
@@ -340,9 +347,12 @@ class peerMain:
                 # main process waits for the client thread to finish its chat
                 if searchStatus is not None and searchStatus is not 0:
                     searchStatus = searchStatus.split(":")
-                    self.peerClient = PeerClient(searchStatus[0], int(searchStatus[1]) , self.loginCredentials[0], self.peerServer, None)
-                    self.peerClient.start()
-                    self.peerClient.join()
+                    # Use asyncio.run_coroutine_threadsafe to run the coroutine in a separate thread
+                    loop = asyncio.new_event_loop()
+                    asyncio.set_event_loop(loop)
+                    asyncio.run_coroutine_threadsafe(self.peerClient_thread(searchStatus[0], int(searchStatus[1]), self.loginCredentials[0], self.peerServer, "OK"), loop)
+                    # self.peerClient.start()
+                    # self.peerClient.join()
             # if this is the receiver side then it will get the prompt to accept an incoming request during the main loop
             # that's why response is evaluated in main process not the server thread even though the prompt is printed by server
             # if the response is ok then a client is created for this peer with the OK message and that's why it will directly
@@ -368,6 +378,11 @@ class peerMain:
         # socket of the client is closed
         if choice != "CANCEL":
             self.tcpClientSocket.close()
+
+        # Async method for starting the peer client thread
+    async def peerClient_thread(self, ipToConnect, portToConnect, username, peerServer, responseReceived):
+        self.peerClient = PeerClient(ipToConnect, portToConnect, username, peerServer, responseReceived)
+        await self.peerClient.run_async()
 
     # peer initializations
     def __init__(self):
@@ -400,7 +415,7 @@ class peerMain:
         
 
     # account creation function
-    def createAccount(self, username, password):
+    async def createAccount(self, username, password):
         # join message to create an account is composed and sent to registry
         # if response is success then informs the user for account creation
         # if response is exist then informs the user for account existence
@@ -483,5 +498,5 @@ async def create_peer_instance():
     await peer_instance.initialize()
 
 # Run the asynchronous function
-import asyncio
+
 asyncio.run(create_peer_instance())

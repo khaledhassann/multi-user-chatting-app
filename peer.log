@@ -17,3 +17,43 @@ INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
 INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
 INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
 INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass7 15600
+INFO:root:Received from 192.168.1.102 -> login-online
+INFO:root:Send to 192.168.1.102:15600 -> LOGOUT
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass7 15600
+INFO:root:Received from 192.168.1.102 -> login-online
+INFO:root:Send to 192.168.1.102:15600 -> JOIN khaled2 pass2
+INFO:root:Received from 192.168.1.102 -> join-success
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled2 pass2 15600
+INFO:root:Received from 192.168.1.102 -> login-success
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled2
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled2 pass2 55041
+INFO:root:Received from 192.168.1.102 -> login-online
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass7 15600
+INFO:root:Received from 192.168.1.102 -> login-online
+INFO:root:Send to 192.168.1.102:15600 -> LOGOUT
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass7 15600
+INFO:root:Received from 192.168.1.102 -> login-online
+INFO:root:Send to 192.168.1.102:15600 -> LOGOUT
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass7 15600
+INFO:root:Received from 192.168.1.102 -> login-online
+INFO:root:Send to 192.168.1.102:15600 -> LOGOUT
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass7 15600
+INFO:root:Received from 192.168.1.102 -> login-online
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass7 15600
+INFO:root:Received from 192.168.1.102 -> login-online
+INFO:root:Send to 192.168.1.102:15600 -> LOGOUT
+INFO:root:Send to 192.168.1.102:15600 -> LOGOUT
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass7 15600
+INFO:root:Send to 192.168.1.102:15600 -> JOIN khaled pass7
+INFO:root:Send to 192.168.1.102:15600 -> JOIN khaled pass7
+INFO:root:Received from 192.168.1.102 -> join-exist
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass7 15600
+INFO:root:Received from 192.168.1.102 -> login-online
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled2 pass2 56664
+INFO:root:Received from 192.168.1.102 -> login-online
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled2 pass2 15600
+INFO:root:Received from 192.168.1.102 -> login-online

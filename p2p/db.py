@@ -52,7 +52,7 @@ class DB:
 
     # logs out the user 
     def user_logout(self, username):
-        self.db.online_peers.remove({"username": username})
+        self.db.online_peers.delete_one({"username": username})
     
 
     # retrieves the ip address and the port number of the username

@@ -57,3 +57,216 @@ INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled2 pass2 56664
 INFO:root:Received from 192.168.1.102 -> login-online
 INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled2 pass2 15600
 INFO:root:Received from 192.168.1.102 -> login-online
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass7 15600
+INFO:root:Received from 192.168.1.102 -> login-online
+INFO:root:Send to 192.168.1.102:15600 -> LOGOUT
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass7 15600
+INFO:root:Received from 192.168.1.102 -> login-online
+INFO:root:Send to 192.168.1.102:15600 -> JOIN khaled3 pass3
+INFO:root:Received from 192.168.1.102 -> join-success
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled3 pass3 15600
+INFO:root:Received from 192.168.1.102 -> login-success
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled3
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled3
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled3
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled3
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled3
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled3
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled3
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled3
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled3
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled3
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass7 57209
+INFO:root:Received from 192.168.1.102 -> login-online
+INFO:root:Send to 192.168.1.102:15600 -> JOIN khaled4 pass4
+INFO:root:Received from 192.168.1.102 -> join-success
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled4 pass4 15600
+INFO:root:Received from 192.168.1.102 -> login-success
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled4
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled3 pass3 15600
+INFO:root:Received from 192.168.1.102 -> login-success
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled3
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass7 15600
+INFO:root:Received from 192.168.1.102 -> login-success
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass7 50000
+INFO:root:Received from 192.168.1.102 -> login-success
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15600 -> LOGOUT khaled
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass7 50000
+INFO:root:Received from 192.168.1.102 -> login-success
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15600 -> LOGOUT khaled
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass7 50000
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass7 50000
+INFO:root:Received from 192.168.1.102 -> login-success
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15600 -> LOGOUT khaled
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass7 20000
+INFO:root:Received from 192.168.1.102 -> login-success
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15600 -> LOGOUT khaled
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass7 20000
+INFO:root:Received from 192.168.1.102 -> login-success
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15600 -> LOGOUT khaled
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass7 3000
+INFO:root:Received from 192.168.1.102 -> login-success
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15600 -> LOGOUT khaled
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass7 57657
+INFO:root:Received from 192.168.1.102 -> login-success
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15600 -> LOGOUT khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass7 57742
+INFO:root:Received from 192.168.1.102 -> login-success
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15600 -> LOGOUT khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass7 50000
+INFO:root:Received from 192.168.1.102 -> login-success
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15600 -> LOGOUT khaled
+ERROR:root:OSError: [WinError 10038] An operation was attempted on something that is not a socket
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled2 pass3 50000
+INFO:root:Received from 192.168.1.102 -> login-wrong-password
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled3 pass3 50000
+INFO:root:Received from 192.168.1.102 -> login-success
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled3
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled3
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled3
+INFO:root:Send to 192.168.1.102:15600 -> LOGOUT khaled3
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled pass7 30000
+INFO:root:Received from 192.168.1.102 -> login-success
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled
+INFO:root:Send to 192.168.1.102:15600 -> LOGOUT khaled
+ERROR:root:OSError: [WinError 10038] An operation was attempted on something that is not a socket
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled4 pass4 40000
+INFO:root:Received from 192.168.1.102 -> login-success
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled4
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled4
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled4
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled4
+INFO:root:Send to 192.168.1.102:15600 -> LOGOUT khaled4
+ERROR:root:OSError: [WinError 10038] An operation was attempted on something that is not a socket
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled2 pass2 50000
+INFO:root:Received from 192.168.1.102 -> login-success
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled2
+INFO:root:Send to 192.168.1.102:15600 -> LOGOUT khaled2
+ERROR:root:OSError: [WinError 10038] An operation was attempted on something that is not a socket
+INFO:root:Send to 192.168.1.102:15600 -> JOIN khaled-test pass-test
+INFO:root:Received from 192.168.1.102 -> join-success
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled-test pass-test 20000
+INFO:root:Received from 192.168.1.102 -> login-success
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15600 -> LOGOUT khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled-test

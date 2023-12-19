@@ -151,6 +151,11 @@ class PeerServer(threading.Thread):
                 logging.error("OSError: {0}".format(oErr))
             except ValueError as vErr:
                 logging.error("ValueError: {0}".format(vErr))
+            # finally:
+            #     # Close sockets in case of an exception
+            #     self.tcpServerSocket.close()
+            #     if self.connectedPeerSocket:
+            #         self.connectedPeerSocket.close()
             
 
 # Client side of peer
@@ -307,9 +312,10 @@ class peerMain:
         # log file initialization
         logging.basicConfig(filename="peer.log", level=logging.INFO)
         # as long as the user is not logged out, asks to select an option in the menu
+        #Search: 4\nStart a chat: 5\n
         while choice != "3":
             # menu selection prompt
-            choice = input("Choose: \nCreate account: 1\nLogin: 2\nLogout: 3\nSearch: 4\nStart a chat: 5\n")
+            choice = input("Choose: \nCreate account: 1\nLogin: 2\nLogout: 3\n")
             # if choice is 1, creates an account with the username
             # and password entered by the user
             if choice is "1":
@@ -445,6 +451,8 @@ class peerMain:
             message = "LOGOUT"
         logging.info("Send to " + self.registryName + ":" + str(self.registryPort) + " -> " + message)
         self.tcpClientSocket.send(message.encode())
+        # # Close the server socket
+        # self.tcpClientSocket.close()
         
 
     # function for searching an online user

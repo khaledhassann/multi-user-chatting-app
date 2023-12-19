@@ -1,8 +1,9 @@
-INFO:root:Send to 192.168.1.102:15600 -> LOGIN khaled3 pass3 30000
+INFO:root:Send to 192.168.1.102:15600 -> REGISTRATION user-test pass-test
+INFO:root:Received from 192.168.1.102 -> reg-success
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN user-test pass-test 20002
 INFO:root:Received from 192.168.1.102 -> login-success
-INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled3
-INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled3
-INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled3
-INFO:root:Send to 192.168.1.102:15500 -> HELLO khaled3
-INFO:root:Send to 192.168.1.102:15600 -> LOGOUT khaled3
-ERROR:root:OSError: [WinError 10038] An operation was attempted on something that is not a socket
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test
+INFO:root:Send to 192.168.1.102:15600 -> LOGOUT user-test

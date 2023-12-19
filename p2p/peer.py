@@ -408,14 +408,14 @@ class peerMain:
         # join message to create an account is composed and sent to registry
         # if response is success then informs the user for account creation
         # if response is exist then informs the user for account existence
-        message = "JOIN " + username + " " + password
+        message = "REGISTRATION " + username + " " + password
         logging.info("Send to " + self.registryName + ":" + str(self.registryPort) + " -> " + message)
         self.tcpClientSocket.send(message.encode())
         response = self.tcpClientSocket.recv(1024).decode()
         logging.info("Received from " + self.registryName + " -> " + response)
-        if response == "join-success":
+        if response == "reg-success":
             print("Account created...")
-        elif response == "join-exist":
+        elif response == "reg-exist":
             print("choose another username or login...")
 
     # login function
@@ -430,13 +430,13 @@ class peerMain:
         if response == "login-success":
             print("Logged in successfully...")
             return 1
-        elif response == "login-account-not-exist":
+        elif response == "login-not-exists":
             print("Account does not exist...")
             return 0
-        elif response == "login-online":
+        elif response == "login-already-online":
             print("Account is already online...")
             return 2
-        elif response == "login-wrong-password":
+        elif response == "login-uname-pass-fail":
             print("Wrong password...")
             return 3
     

@@ -1,0 +1,9 @@
+INFO:root:Received from 192.168.1.102:58334 -> REGISTRATION user-test pass-test
+INFO:root:Send to 192.168.1.102:58334 -> reg-success
+INFO:root:Received from 192.168.1.102:58334 -> LOGIN user-test pass-test 20002
+INFO:root:Send to 192.168.1.102:58334 -> login-success
+INFO:root:Received from 192.168.1.102:49456 -> HELLO user-test
+INFO:root:Received from 192.168.1.102:49456 -> HELLO user-test
+INFO:root:Received from 192.168.1.102:49456 -> HELLO user-test
+INFO:root:Received from 192.168.1.102:49456 -> HELLO user-test
+INFO:root:Received from 192.168.1.102:58334 -> LOGOUT user-test

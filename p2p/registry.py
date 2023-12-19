@@ -41,11 +41,11 @@ class ClientThread(threading.Thread):
                 message = self.tcpClientSocket.recv(1024).decode().split()
                 logging.info("Received from " + self.ip + ":" + str(self.port) + " -> " + " ".join(message))            
                 #   JOIN    #
-                if message[0] == "JOIN":
+                if message[0] == "REGISTRATION":
                     # join-exist is sent to peer,
                     # if an account with this username already exists
                     if db.is_account_exist(message[1]):
-                        response = "join-exist"
+                        response = "reg-exist"
                         print("From-> " + self.ip + ":" + str(self.port) + " " + response)
                         logging.info("Send to " + self.ip + ":" + str(self.port) + " -> " + response)  
                         self.tcpClientSocket.send(response.encode())
@@ -53,7 +53,7 @@ class ClientThread(threading.Thread):
                     # if an account with this username is not exist, and the account is created
                     else:
                         db.register(message[1], message[2])
-                        response = "join-success"
+                        response = "reg-success"
                         logging.info("Send to " + self.ip + ":" + str(self.port) + " -> " + response) 
                         self.tcpClientSocket.send(response.encode())
                 #   LOGIN    #
@@ -61,13 +61,13 @@ class ClientThread(threading.Thread):
                     # login-account-not-exist is sent to peer,
                     # if an account with the username does not exist
                     if not db.is_account_exist(message[1]):
-                        response = "login-account-not-exist"
+                        response = "login-not-exists"
                         logging.info("Send to " + self.ip + ":" + str(self.port) + " -> " + response) 
                         self.tcpClientSocket.send(response.encode())
                     # login-online is sent to peer,
                     # if an account with the username already online
                     elif db.is_account_online(message[1]):
-                        response = "login-online"
+                        response = "login-already-online"
                         logging.info("Send to " + self.ip + ":" + str(self.port) + " -> " + response) 
                         self.tcpClientSocket.send(response.encode())
                     # login-success is sent to peer,
@@ -97,7 +97,7 @@ class ClientThread(threading.Thread):
                             self.udpServer.timer.start()
                         # if password not matches and then login-wrong-password response is sent
                         else:
-                            response = "login-wrong-password"
+                            response = "login-uname-pass-fail"
                             logging.info("Send to " + self.ip + ":" + str(self.port) + " -> " + response) 
                             self.tcpClientSocket.send(response.encode())
                 #   LOGOUT  #

@@ -1,1 +1,57 @@
-INFO:root:Send to 192.168.1.102:15600 -> JOIN khaled 1234
+INFO:root:Send to 192.168.1.102:15600 -> REGISTRATION user-test-2 pass123
+INFO:root:Received from 192.168.1.102 -> reg-success
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN user-te pass123 32268
+INFO:root:Received from 192.168.1.102 -> login-not-exists
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN user-test-2 pass12 58934
+INFO:root:Received from 192.168.1.102 -> login-uname-pass-fail
+INFO:root:Send to 192.168.1.102:15600 -> LOGIN user-test-2 pass123 1101
+INFO:root:Received from 192.168.1.102 -> login-success
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15500 -> HELLO user-test-2
+INFO:root:Send to 192.168.1.102:15600 -> LOGOUT user-test-2

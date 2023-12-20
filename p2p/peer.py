@@ -9,7 +9,10 @@ import threading
 import time
 import select
 import logging
-import asyncio
+import random
+import db
+
+
 
 # Server side of peer
 class PeerServer(threading.Thread):
@@ -158,6 +161,11 @@ class PeerServer(threading.Thread):
                 logging.error("OSError: {0}".format(oErr))
             except ValueError as vErr:
                 logging.error("ValueError: {0}".format(vErr))
+            # finally:
+            #     # Close sockets in case of an exception
+            #     self.tcpServerSocket.close()
+            #     if self.connectedPeerSocket:
+            #         self.connectedPeerSocket.close()
             
 
 # Client side of peer
@@ -282,27 +290,67 @@ class PeerClient(threading.Thread):
 
 # main process of the peer
 class peerMain:
-    # async init
-    async def initialize(self):
+    # Function to generate a random port number and check if it's available
+    def generateAndCheckPort(self):
+        # Generate a random port number
+        random_port = random.randint(1024, 65535)
+
+        # Check if the generated port is already in use by online peers
+        while db.isPortInUse(random_port):  # Assuming db.isPortInUse is a function that checks if the port is in use
+            random_port = random.randint(1024, 65535)
+
+        return random_port
+
+    # peer initializations
+    def __init__(self):
+        # ip address of the registry
+        self.registryName = input("Enter IP address of registry: ")
+        #self.registryName = 'localhost'
+        # port number of the registry
+        self.registryPort = 15600
+        # tcp socket connection to registry
+        self.tcpClientSocket = socket(AF_INET, SOCK_STREAM)
+        self.tcpClientSocket.connect((self.registryName,self.registryPort))
+        # initializes udp socket which is used to send hello messages
+        self.udpClientSocket = socket(AF_INET, SOCK_DGRAM)
+        # udp port of the registry
+        self.registryUDPPort = 15500
+        # login info of the peer
+        self.loginCredentials = (None, None)
+        # online status of the peer
+        self.isOnline = False
+        # server port number of this peer
+        self.peerServerPort = None
+        # server of this peer
+        self.peerServer = None
+        # client of this peer
+        self.peerClient = None
+        # timer initialization
+        self.timer = None
+        
         choice = "0"
         # as long as the user is not logged out, asks to select an option in the menu
+        #Search: 4\nStart a chat: 5\n
         while choice != "3":
             # menu selection prompt
-            choice = input("Choose: \nCreate account: 1\nLogin: 2\nLogout: 3\nSearch: 4\nStart a chat: 5\n")
+            choice = input("Choose: \nCreate account: 1\nLogin: 2\nLogout: 3\nView list of online users: 4\n")
             # if choice is 1, creates an account with the username
             # and password entered by the user
             if choice is "1":
                 username = input("username: ")
                 password = input("password: ")
                 
-                await self.createAccount(username, password)
+                self.createAccount(username, password)
             # if choice is 2 and user is not logged in, asks for the username
             # and the password to login
             elif choice is "2" and not self.isOnline:
                 username = input("username: ")
                 password = input("password: ")
+
+                # generate random port number for user
                 # asks for the port number for server's tcp socket
-                peerServerPort = int(input("Enter a port number for peer server: "))
+                peerServerPort = self.generateAndCheckPort()
+                print("Generated port number:", peerServerPort)
                 
                 status = self.login(username, password, peerServerPort)
                 # is user logs in successfully, peer variables are set
@@ -329,9 +377,12 @@ class peerMain:
             # is peer is not logged in and exits the program
             elif choice is "3":
                 self.logout(2)
-            # if choice is 4 and user is online, then user is asked
+
+            elif choice is "4":
+                db.display_online_usernames()
+            # if choice is 5 and user is online, then user is asked
             # for a username that is wanted to be searched
-            elif choice is "4" and self.isOnline:
+            elif choice is "5" and self.isOnline:
                 username = input("Username to be searched: ")
                 searchStatus = self.searchUser(username)
                 # if user is found its ip address is shown to user
@@ -339,7 +390,7 @@ class peerMain:
                     print("IP address of " + username + " is " + searchStatus)
             # if choice is 5 and user is online, then user is asked
             # to enter the username of the user that is wanted to be chatted
-            elif choice is "5" and self.isOnline:
+            elif choice is "6" and self.isOnline:
                 username = input("Enter the username of user to start chat: ")
                 searchStatus = self.searchUser(username)
                 # if searched user is found, then its ip address and port number is retrieved
@@ -419,14 +470,14 @@ class peerMain:
         # join message to create an account is composed and sent to registry
         # if response is success then informs the user for account creation
         # if response is exist then informs the user for account existence
-        message = "JOIN " + username + " " + password
+        message = "REGISTRATION " + username + " " + password
         logging.info("Send to " + self.registryName + ":" + str(self.registryPort) + " -> " + message)
         self.tcpClientSocket.send(message.encode())
         response = self.tcpClientSocket.recv(1024).decode()
         logging.info("Received from " + self.registryName + " -> " + response)
-        if response == "join-success":
+        if response == "reg-success":
             print("Account created...")
-        elif response == "join-exist":
+        elif response == "reg-exist":
             print("choose another username or login...")
 
     # login function
@@ -441,13 +492,13 @@ class peerMain:
         if response == "login-success":
             print("Logged in successfully...")
             return 1
-        elif response == "login-account-not-exist":
+        elif response == "login-not-exists":
             print("Account does not exist...")
             return 0
-        elif response == "login-online":
+        elif response == "login-already-online":
             print("Account is already online...")
             return 2
-        elif response == "login-wrong-password":
+        elif response == "login-uname-pass-fail":
             print("Wrong password...")
             return 3
     
@@ -462,6 +513,8 @@ class peerMain:
             message = "LOGOUT"
         logging.info("Send to " + self.registryName + ":" + str(self.registryPort) + " -> " + message)
         self.tcpClientSocket.send(message.encode())
+        # # Close the server socket
+        # self.tcpClientSocket.close()
         
 
     # function for searching an online user
@@ -493,10 +546,7 @@ class peerMain:
         self.timer = threading.Timer(1, self.sendHelloMessage)
         self.timer.start()
 
-async def create_peer_instance():
-    peer_instance = peerMain()
-    await peer_instance.initialize()
+db = db.DB()
 
-# Run the asynchronous function
-
-asyncio.run(create_peer_instance())
+# peer is started
+main = peerMain()

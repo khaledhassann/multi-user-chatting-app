@@ -9,6 +9,10 @@ import threading
 import time
 import select
 import logging
+import random
+import db
+
+
 
 # Server side of peer
 class PeerServer(threading.Thread):
@@ -280,6 +284,16 @@ class PeerClient(threading.Thread):
 
 # main process of the peer
 class peerMain:
+    # Function to generate a random port number and check if it's available
+    def generateAndCheckPort(self):
+        # Generate a random port number
+        random_port = random.randint(1024, 65535)
+
+        # Check if the generated port is already in use by online peers
+        while db.isPortInUse(random_port):  # Assuming db.isPortInUse is a function that checks if the port is in use
+            random_port = random.randint(1024, 65535)
+
+        return random_port
 
     # peer initializations
     def __init__(self):
@@ -315,7 +329,7 @@ class peerMain:
         #Search: 4\nStart a chat: 5\n
         while choice != "3":
             # menu selection prompt
-            choice = input("Choose: \nCreate account: 1\nLogin: 2\nLogout: 3\n")
+            choice = input("Choose: \nCreate account: 1\nLogin: 2\nLogout: 3\nView list of online users: 4\n")
             # if choice is 1, creates an account with the username
             # and password entered by the user
             if choice is "1":
@@ -328,8 +342,11 @@ class peerMain:
             elif choice is "2" and not self.isOnline:
                 username = input("username: ")
                 password = input("password: ")
+
+                # generate random port number for user
                 # asks for the port number for server's tcp socket
-                peerServerPort = int(input("Enter a port number for peer server: "))
+                peerServerPort = self.generateAndCheckPort()
+                print("Generated port number:", peerServerPort)
                 
                 status = self.login(username, password, peerServerPort)
                 # is user logs in successfully, peer variables are set
@@ -356,9 +373,12 @@ class peerMain:
             # is peer is not logged in and exits the program
             elif choice is "3":
                 self.logout(2)
-            # if choice is 4 and user is online, then user is asked
+
+            elif choice is "4":
+                db.display_online_usernames()
+            # if choice is 5 and user is online, then user is asked
             # for a username that is wanted to be searched
-            elif choice is "4" and self.isOnline:
+            elif choice is "5" and self.isOnline:
                 username = input("Username to be searched: ")
                 searchStatus = self.searchUser(username)
                 # if user is found its ip address is shown to user
@@ -366,7 +386,7 @@ class peerMain:
                     print("IP address of " + username + " is " + searchStatus)
             # if choice is 5 and user is online, then user is asked
             # to enter the username of the user that is wanted to be chatted
-            elif choice is "5" and self.isOnline:
+            elif choice is "6" and self.isOnline:
                 username = input("Enter the username of user to start chat: ")
                 searchStatus = self.searchUser(username)
                 # if searched user is found, then its ip address and port number is retrieved
@@ -483,6 +503,8 @@ class peerMain:
         self.udpClientSocket.sendto(message.encode(), (self.registryName, self.registryUDPPort))
         self.timer = threading.Timer(1, self.sendHelloMessage)
         self.timer.start()
+
+db = db.DB()
 
 # peer is started
 main = peerMain()

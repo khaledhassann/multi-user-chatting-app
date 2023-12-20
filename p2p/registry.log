@@ -1,9 +1,57 @@
-INFO:root:Received from 192.168.1.102:58334 -> REGISTRATION user-test pass-test
-INFO:root:Send to 192.168.1.102:58334 -> reg-success
-INFO:root:Received from 192.168.1.102:58334 -> LOGIN user-test pass-test 20002
-INFO:root:Send to 192.168.1.102:58334 -> login-success
-INFO:root:Received from 192.168.1.102:49456 -> HELLO user-test
-INFO:root:Received from 192.168.1.102:49456 -> HELLO user-test
-INFO:root:Received from 192.168.1.102:49456 -> HELLO user-test
-INFO:root:Received from 192.168.1.102:49456 -> HELLO user-test
-INFO:root:Received from 192.168.1.102:58334 -> LOGOUT user-test
+INFO:root:Received from 192.168.1.102:60597 -> REGISTRATION user-test-2 pass123
+INFO:root:Send to 192.168.1.102:60597 -> reg-success
+INFO:root:Received from 192.168.1.102:60597 -> LOGIN user-te pass123 32268
+INFO:root:Send to 192.168.1.102:60597 -> login-not-exists
+INFO:root:Received from 192.168.1.102:60597 -> LOGIN user-test-2 pass12 58934
+INFO:root:Send to 192.168.1.102:60597 -> login-uname-pass-fail
+INFO:root:Received from 192.168.1.102:60597 -> LOGIN user-test-2 pass123 1101
+INFO:root:Send to 192.168.1.102:60597 -> login-success
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:53047 -> HELLO user-test-2
+INFO:root:Received from 192.168.1.102:60597 -> LOGOUT user-test-2

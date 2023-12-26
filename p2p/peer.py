@@ -329,7 +329,7 @@ class peerMain:
         #Search: 4\nStart a chat: 5\n
         while choice != "3":
             # menu selection prompt
-            choice = input("Choose: \nCreate account: 1\nLogin: 2\nLogout: 3\nView list of online users: 4\n")
+            choice = input("Choose: \nCreate account: 1\nLogin: 2\nLogout: 3\nView list of online users: 4\nSearch: 5\nStart a chat: 6\n")
             # if choice is 1, creates an account with the username
             # and password entered by the user
             if choice is "1":

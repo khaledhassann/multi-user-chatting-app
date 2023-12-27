@@ -9,7 +9,7 @@ class DB:
 
     # db initializations
     def __init__(self):
-        self.client = MongoClient('mongodb+srv://kmhtaha:tJgmWD36mFJoAWHm@cluster0.okxf27l.mongodb.net/')
+        self.client = MongoClient('mongodb+srv://johnwadie:john123654@cluster0.okxf27l.mongodb.net/')
         self.db = self.client['p2p-chat']
 
 

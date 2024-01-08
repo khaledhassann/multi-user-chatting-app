@@ -11,7 +11,8 @@ import select
 import logging
 import random
 import db
-
+from colorama import init, Fore, Style
+# from server import create_chat_room_server  # receive function to create a server for the chat room
 
 
 # Server side of peer
@@ -40,6 +41,20 @@ class PeerServer(threading.Thread):
         self.isOnline = True
         # keeps the username of the peer that this peer is chatting with
         self.chattingClientName = None
+
+    def join_chat_room(self, room_name):
+        # Check if the chat room exists
+        if self.db.is_chat_room_exist(room_name):
+            self.isChatRequested = 1
+            self.chattingClientName = f"Chat Room: {room_name}"
+            self.room_name = room_name
+            print(f"Joined Chat Room: {room_name}")
+        else:
+            print(f"Chat Room '{room_name}' does not exist.")
+
+    def send_chat_room_message(self, message):
+        # Send the message to the chat room
+        self.db.add_chat_room_message(self.room_name, self.username, message)
     
 
     # main method of the peer server thread
@@ -130,7 +145,7 @@ class PeerServer(threading.Thread):
                         # if a message is received, and if this is not a quit message ':q' and 
                         # if it is not an empty message, show this message to the user
                         elif messageReceived[:2] != ":q" and len(messageReceived)!= 0:
-                            print(self.chattingClientName + ": " + messageReceived)
+                            print("\n"+self.chattingClientName + ": " + messageReceived)
                         # if the message received is a quit message ':q',
                         # makes ischatrequested 1 to receive new incoming request messages
                         # removes the socket of the connected peer from the inputs list
@@ -184,12 +199,73 @@ class PeerClient(threading.Thread):
         # keeps if this client is ending the chat or not
         self.isEndingChat = False
 
+    def join_chat_room(self, room_name):
+        # Send a request to join the chat room
+        join_message = f"JOIN {room_name}"
+        self.tcpClientSocket.send(join_message.encode())
+        response = self.tcpClientSocket.recv(1024).decode()
+        if response == "JOIN-OK":
+            print(f"Joined Chat Room: {room_name}")
+        elif response == "JOIN-ERROR":
+            print(f"Failed to join Chat Room: {room_name}")
+
+    
+
+    def receive(self):
+            while True:
+                try:
+                    message = self.tcpClientSocket.recv(1024).decode('ascii')
+                    if message == 'NICK':
+                        self.tcpClientSocket.send(self.username.encode('ascii'))
+                    else:
+                        print(message)
+                except:
+                    print('An error occured')
+                    self.tcpClientSocket.close()
+                    break
+
+    def write(self):
+        while True:
+            try:
+                message = f'{self.username}: {input("")}'
+                self.tcpClientSocket.send(message.encode('ascii'))
+
+                # Check if the message is a quit message
+                if message.startswith("\n:q"):
+                    self.tcpClientSocket.close()
+                    break
+            except Exception as e:
+                print(f'An error occurred: {str(e)}')
+                break
+
 
     # main method of the peer client thread
     def run(self):
         print("Peer client started...")
         # connects to the server of other peer
         self.tcpClientSocket.connect((self.ipToConnect, self.portToConnect))
+
+        
+        # if the self.portToConnect == 5555 then this is a chatRoom request
+        if self.portToConnect == 55555 and self.responseReceived is 'chatRoom':
+            #todo: implement loop to send and receive messages
+            # Threads are created in the run method
+            receive_thread = threading.Thread(target=self.receive)
+            write_thread = threading.Thread(target=self.write)
+
+            # Set the threads as daemons
+            receive_thread.daemon = True
+            write_thread.daemon = True
+
+            # Start the threads
+            receive_thread.start()
+            write_thread.start()
+
+            # Wait for threads to finish
+            receive_thread.join()
+            write_thread.join()
+
+
         # if the server of this peer is not connected by someone else and if this is the requester side peer client then enters here
         if self.peerServer.isChatRequested == 0 and self.responseReceived is None:
             # composes a request message and this is sent to server and then this waits a response message from the server this client connects
@@ -294,6 +370,31 @@ class peerMain:
             random_port = random.randint(1024, 65535)
 
         return random_port
+    
+    def create_chat_room(self, room_name):
+        # Check if the chat room already exists
+        if db.is_chat_room_exist(room_name):
+            print(Fore.RED + f"Chat Room '{room_name}' already exists.")
+        else:
+            # Create the chat room
+            db.create_chat_room(room_name)
+            print(Fore.GREEN + f"Chat Room '{room_name}' created successfully.")
+
+    def display_available_chat_rooms(self):
+        # Retrieve available chat rooms
+        db.display_available_chat_rooms()
+
+    def join_chat_room(self, username, room_name):
+        # Check if the chat room exists
+        if db.is_chat_room_exist(room_name):
+            # Join the chat room
+            db.join_chat_room(username, room_name)
+            self.peerClient = PeerClient('127.0.0.1', 55555, username, self.peerServer, 'chatRoom')
+            self.peerClient.start()
+            self.peerClient.join()
+            print(Fore.GREEN + f"Joined Chat Room: {room_name}")
+        else:
+            print(Fore.RED + f"Chat Room '{room_name}' does not exist.")
 
     # peer initializations
     def __init__(self):
@@ -321,6 +422,9 @@ class peerMain:
         self.peerClient = None
         # timer initialization
         self.timer = None
+
+        #Initialize the DB class
+        # self.db = db.DB()
         
         choice = "0"
         # log file initialization
@@ -329,7 +433,7 @@ class peerMain:
         #Search: 4\nStart a chat: 5\n
         while choice != "3":
             # menu selection prompt
-            choice = input("Choose: \nCreate account: 1\nLogin: 2\nLogout: 3\nView list of online users: 4\nSearch: 5\nStart a chat: 6\n")
+            choice = input(Style.RESET_ALL + "Choose: \nCreate account: 1\nLogin: 2\nLogout: 3\nView list of online users: 4\nSearch: 5\nStart a chat: 6\nView available chat rooms: 7\nCreate chat room: 8\nJoin existing chat room: 9\n")
             # if choice is 1, creates an account with the username
             # and password entered by the user
             if choice is "1":
@@ -369,7 +473,7 @@ class peerMain:
                 self.peerServer.tcpServerSocket.close()
                 if self.peerClient is not None:
                     self.peerClient.tcpClientSocket.close()
-                print("Logged out successfully")
+                print(Fore.GREEN + "Logged out successfully")
             # is peer is not logged in and exits the program
             elif choice is "3":
                 self.logout(2)
@@ -397,6 +501,15 @@ class peerMain:
                     self.peerClient = PeerClient(searchStatus[0], int(searchStatus[1]) , self.loginCredentials[0], self.peerServer, None)
                     self.peerClient.start()
                     self.peerClient.join()
+
+            elif choice is "7" and self.isOnline:
+                self.display_available_chat_rooms()
+            elif choice is "8" and self.isOnline:
+                room_name = input("Enter the name for the new chat room: ")
+                self.create_chat_room(room_name)
+            elif choice is "9" and self.isOnline:
+                room_name = input("Enter the name of the chat room you want to join: ")
+                self.join_chat_room(self.loginCredentials[0], room_name)
             # if this is the receiver side then it will get the prompt to accept an incoming request during the main loop
             # that's why response is evaluated in main process not the server thread even though the prompt is printed by server
             # if the response is ok then a client is created for this peer with the OK message and that's why it will directly
@@ -434,9 +547,9 @@ class peerMain:
         response = self.tcpClientSocket.recv(1024).decode()
         logging.info("Received from " + self.registryName + " -> " + response)
         if response == "reg-success":
-            print("Account created...")
+            print(Fore.GREEN + "Account created...")
         elif response == "reg-exist":
-            print("choose another username or login...")
+            print(Fore.RED + "choose another username or login...")
 
     # login function
     def login(self, username, password, peerServerPort):
@@ -448,16 +561,16 @@ class peerMain:
         response = self.tcpClientSocket.recv(1024).decode()
         logging.info("Received from " + self.registryName + " -> " + response)
         if response == "login-success":
-            print("Logged in successfully...")
+            print(Fore.GREEN +"Logged in successfully...")
             return 1
         elif response == "login-not-exists":
-            print("Account does not exist...")
+            print(Fore.RED + "Account does not exist...")
             return 0
         elif response == "login-already-online":
-            print("Account is already online...")
+            print(Fore.RED + "Account is already online...")
             return 2
         elif response == "login-uname-pass-fail":
-            print("Wrong password...")
+            print(Fore.RED + "Wrong password...")
             return 3
     
     # logout function
@@ -486,13 +599,13 @@ class peerMain:
         response = self.tcpClientSocket.recv(1024).decode().split()
         logging.info("Received from " + self.registryName + " -> " + " ".join(response))
         if response[0] == "search-success":
-            print(username + " is found successfully...")
+            print(Fore.GREEN + username + " is found successfully...")
             return response[1]
         elif response[0] == "search-user-not-online":
-            print(username + " is not online...")
+            print(Fore.RED + username + " is not online...")
             return 0
         elif response[0] == "search-user-not-found":
-            print(username + " is not found")
+            print(Fore.RED + username + " is not found")
             return None
     
     # function for sending hello message

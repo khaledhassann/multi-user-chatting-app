@@ -85,3 +85,49 @@ class DB:
     def get_peer_ip_port(self, username):
         res = self.db.online_peers.find_one({"username": username})
         return (res["ip"], res["port"])
+    
+    # New: display list of chat rooms
+    def display_available_chat_rooms(self):
+        # Retrieve available chat rooms
+        available_rooms = self.db.chat_rooms.find()
+        print("Available Chat Rooms:")
+        for room in available_rooms:
+            print(f"- {room['name']}")
+
+    # New: Check if a chat room exists
+    def is_chat_room_exist(self, room_name):
+        count = self.db.chat_rooms.count_documents({'name': room_name})
+        return count > 0
+
+    # New: Create a chat room
+    def create_chat_room(self, room_name):
+        chat_room = {
+            "name": room_name,
+            "participants": [],
+            "messages": []
+        }
+        self.db.chat_rooms.insert_one(chat_room)
+
+    # New: Join a chat room
+    def join_chat_room(self, username, room_name):
+        self.db.chat_rooms.update_one(
+            {"name": room_name},
+            {"$push": {"participants": username}}
+        )
+
+    # New: Get chat room participants
+    def get_chat_room_participants(self, room_name):
+        participants = self.db.chat_rooms.find_one({"name": room_name}, {"_id": 0, "participants": 1})
+        return participants.get("participants", [])
+
+    # New: Add a message to a chat room
+    def add_chat_room_message(self, room_name, sender, message):
+        self.db.chat_rooms.update_one(
+            {"name": room_name},
+            {"$push": {"messages": {"sender": sender, "message": message}}}
+        )
+
+    # New: Get chat room messages
+    def get_chat_room_messages(self, room_name):
+        messages = self.db.chat_rooms.find_one({"name": room_name}, {"_id": 0, "messages": 1})
+        return messages.get("messages", [])

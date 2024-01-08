@@ -9,6 +9,7 @@ import threading
 import select
 import logging
 import db
+from colorama import init, Fore, Style
 
 # This class is used to process the peer messages sent to registry
 # for each peer connected to registry, a new client thread is created
@@ -26,14 +27,39 @@ class ClientThread(threading.Thread):
         self.username = None
         self.isOnline = True
         self.udpServer = None
-        print("New thread started for " + ip + ":" + str(port))
+        print(Style.RESET_ALL + "New thread started for " + ip + ":" + str(port))
+
+        # Join a chat room
+    def join_chat_room(self, room_name):
+        join_message = f"JOIN {room_name} {self.username}"
+        self.tcpClientSocket.send(join_message.encode())
+        response = self.tcpClientSocket.recv(1024).decode()
+        if response == "JOIN-OK":
+            print(f"Joined Chat Room: {room_name}")
+        elif response == "JOIN-ERROR":
+            print(f"Failed to join Chat Room: {room_name}")
+
+    # Send a message to a chat room
+    def send_chat_room_message(self, room_name, message):
+        send_message = f"SEND {room_name} {self.username} {message}"
+        self.tcpClientSocket.send(send_message.encode())
+
+    # Leave a chat room
+    def leave_chat_room(self, room_name):
+        leave_message = f"LEAVE {room_name} {self.username}"
+        self.tcpClientSocket.send(leave_message.encode())
+        response = self.tcpClientSocket.recv(1024).decode()
+        if response == "LEAVE-OK":
+            print(f"Left Chat Room: {room_name}")
+        elif response == "LEAVE-ERROR":
+            print(f"Failed to leave Chat Room: {room_name}")
 
     # main of the thread
     def run(self):
         # locks for thread which will be used for thread synchronization
         self.lock = threading.Lock()
         print("Connection from: " + self.ip + ":" + str(port))
-        print("IP Connected: " + self.ip)
+        print(Fore.GREEN + "IP Connected: " + self.ip)
         
         while True:
             try:
@@ -142,6 +168,29 @@ class ClientThread(threading.Thread):
                         response = "search-user-not-found"
                         logging.info("Send to " + self.ip + ":" + str(self.port) + " -> " + response) 
                         self.tcpClientSocket.send(response.encode())
+
+                #   JOIN CHAT ROOM   #
+                elif message[0] == "JOIN-CHAT-ROOM":
+                    room_name = message[1]
+                    username = message[2]
+                    # Check if the chat room exists
+                    if db.is_chat_room_exist(room_name):
+                        # Join the chat room
+                        db.join_chat_room(username, room_name)
+                        print(f"Joined Chat Room: {room_name}")
+                    else:
+                        print(f"Chat Room '{room_name}' does not exist.")
+
+                #   SEND CHAT ROOM MESSAGE  #
+                elif message[0] == "SEND-CHAT-ROOM-MESSAGE":
+                    room_name = message[1]
+                    chat_message = " ".join(message[2:])
+                    self.send_chat_room_message(room_name, chat_message)
+
+                #   LEAVE CHAT ROOM  #
+                elif message[0] == "LEAVE-CHAT-ROOM":
+                    room_name = message[1]
+                    self.leave_chat_room(room_name)
             except OSError as oErr:
                 logging.error("OSError: {0}".format(oErr)) 
 
@@ -172,7 +221,7 @@ class UDPServer(threading.Thread):
             if self.username in tcpThreads:
                 del tcpThreads[self.username]
         self.tcpClientSocket.close()
-        print("Removed " + self.username + " from online peers")
+        print(Fore.BLUE + "Removed " + self.username + " from online peers")
 
 
     # resets the timer for udp server
@@ -209,6 +258,8 @@ print("Registry port number: " + str(port))
 onlinePeers = {}
 # accounts list for accounts
 accounts = {}
+# in chatRoom peers
+chatRoomPeers = {}
 # tcpThreads list for online client's thread
 tcpThreads = {}
 
@@ -228,7 +279,7 @@ logging.basicConfig(filename="registry.log", level=logging.INFO)
 # as long as at least a socket exists to listen registry runs
 while inputs:
 
-    print("Listening for incoming connections...")
+    print(Fore.BLUE + "Listening for incoming connections...")
     # monitors for the incoming connections
     readable, writable, exceptional = select.select(inputs, [], [])
     for s in readable:
@@ -250,7 +301,7 @@ while inputs:
                 if message[1] in tcpThreads:
                     # resets the timeout for that peer since the hello message is received
                     tcpThreads[message[1]].resetTimeout()
-                    print("Hello is received from " + message[1])
+                    print(Style.RESET_ALL + "Hello is received from " + message[1])
                     logging.info("Received from " + clientAddress[0] + ":" + str(clientAddress[1]) + " -> " + " ".join(message))
                     
 # registry tcp socket is closed

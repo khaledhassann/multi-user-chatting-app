@@ -1,6 +1,5 @@
 import threading
 import socket
-from colorama import init, Fore, Style
 
 host = '127.0.0.1'
 port = 55555
@@ -20,7 +19,7 @@ def handle(client):
     while True:
         try:
             message = client.recv(1024)
-            broadcast(Style.RESET_ALL + message)
+            broadcast(message)
         except:
             index = clients.index(client)
             clients.remove(client)
